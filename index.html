@@ -28,15 +28,17 @@
 
                 <div class="panel-footer"><button id="AddChore" class=" btn btn-primary" ng-click="homeCtrl.add()">Add To List</button></div>
             </div>
-            <div style="float:right; width:65%;">
+            <div style="float:right; width:65%;" ng-hide="homeCtrl.hide">
                 <div class="btn-group" style="margin-bottom:5px">
                     <button id="OrderHighLow" class="btn btn-danger" ng-click="homeCtrl.high()">Order by Highest Priority</button>
                     <button id="OrderLowHigh" class="btn btn-success" ng-click="homeCtrl.low()">Order by Lowest Priority</button>
-                    <button id="OrderAZ" class="btn btn-primary" ng-click="homeCtrl.az()">Order Alphabetically</button>
+                    <button id="OrderAZ" class="btn btn-warning" ng-click="homeCtrl.az()">Order Alphabetically</button>
+                    <button id="OrderOldest" class="btn btn-primary" ng-click="homeCtrl.oldest()">Order by Oldest</button>
+                    <button id="OrderNewest" class="btn btn-info" ng-click="homeCtrl.newest()">Order by Newest</button>
                 </div>
                 <div class="panel panel-info">
                     <ul id="Todo List" style="list-style: none; padding: 0px; margin-bottom: 0px">
-                        <li ng-repeat="toDo in homeCtrl.toDoList  | orderBy: homeCtrl.order " class={{toDo[2]}} style=" margin: 0px">{{toDo[0]}}</li>
+                        <li ng-repeat="toDo in homeCtrl.toDoList  | orderBy: homeCtrl.order" class={{toDo[2]}} style=" margin: 0px">{{toDo[0]}}</li>
                     </ul>
                 </div>
 

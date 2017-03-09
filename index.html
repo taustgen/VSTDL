@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Very Simple Todo List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body ng-app="app">
+    <div ng-controller="HomeController as homeCtrl">
+        <div class="jumbotron vertical-center" style="text-align: center">
+            <h1>Very Simple Todo App</h1>
+        </div>
+        <div style="width: 80%; margin: 0 auto">
+            <div style="float:left; width:30%; margin: 0  auto" class="panel panel-info">
+                <div class="panel-heading" style="font-size: 200%; text-align:center">Add Item to Todo List</div>
+                <div class="form-group">
+                    <la for="chore" style="padding-left: 5px">Task</la>
+                    <input type="text" id="chore" class="form-control" placeholder="Enter task:" ng-model="homeCtrl.task">
+                </div>
+                <div class="form-group">
+                    <la for="priority" style="padding-left: 5px">Task Priority</la>
+                    <select  class="form-control" placeholder="Select Priority" ng-model="homeCtrl.priority" ng-options="priority[0] for priority in homeCtrl.priorities ">
+
+                    </select>
+                </div>
+
+                <div class="panel-footer"><button id="AddChore" class=" btn btn-primary" ng-click="homeCtrl.add()">Add To List</button></div>
+            </div>
+            <div style="float:right; width:65%;">
+                <div class="btn-group" style="margin-bottom:5px">
+                    <button id="OrderHighLow" class="btn btn-danger" ng-click="homeCtrl.high()">Order by Highest Priority</button>
+                    <button id="OrderLowHigh" class="btn btn-success" ng-click="homeCtrl.low()">Order by Lowest Priority</button>
+                    <button id="OrderAZ" class="btn btn-primary" ng-click="homeCtrl.az()">Order Alphabetically</button>
+                </div>
+                <div class="panel panel-info">
+                    <ul id="Todo List" style="list-style: none; padding: 0px; margin-bottom: 0px">
+                        <li ng-repeat="toDo in homeCtrl.toDoList  | orderBy: homeCtrl.order " class={{toDo[2]}} style=" margin: 0px">{{toDo[0]}}</li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+    <script type="text/javascript" src="scripts/HomeController.js"></script>
+</body>
+</html>

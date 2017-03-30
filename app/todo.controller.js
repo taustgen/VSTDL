@@ -5,10 +5,10 @@
         .module('todo')
         .controller('TodoController', TodoController);
 
-    TodoController.$inject = [];
+    TodoController.$inject = ['todoFactory'];
 
     /* @ngInject */
-    function TodoController() {
+    function TodoController(todoFactory) {
         var vm = this;
         vm.order = "3"
         vm.hide = true;
@@ -18,30 +18,57 @@
             ["High", 2, "alert alert-warning"],
             ["Low", 3, "alert alert-success"]
         ];
-        vm.count = 0;
+        activate();
+        vm.remove = function(todo) {
+            todoFactory
+                .remove(todo.todoItemId)
+                .then(function(response){
+                  activate();
+                }
+                );
+        }
         vm.add = function append() {
             if (vm.task) {
-                vm.toDoList.push([vm.task, vm.priority[1], vm.priority[2], vm.count]);
+                todoFactory.create({
+                        "task": vm.task,
+                        "priNum": vm.priority[1],
+                        "priStyle": vm.priority[2]
+                    })
+                    .then(function(data) {
+                        vm.toDoList.push(data);
+                        vm.hide = false;
+                    });
+
+
                 vm.task = "";
                 vm.priority = "";
-                vm.hide = false;
-                vm.count++;
+
             }
         }
         vm.high = function high() {
-            vm.order = "1";
+            vm.order = "priNum";
         }
         vm.low = function low() {
-            vm.order = "-1";
+            vm.order = "-priNum";
         }
         vm.az = function az() {
-            vm.order = "0";
+            vm.order = "task";
         }
         vm.oldest = function Oldest() {
-            vm.order = "3";
+            vm.order = "todoItemId";
         }
         vm.newest = function Newest() {
-            vm.order = "-3"
+            vm.order = "-todoItemId"
+        }
+
+        function activate() {
+            todoFactory
+                .getAll()
+                .then(function(data) {
+                    vm.toDoList = data;
+
+                })
+
         }
     }
 })();
